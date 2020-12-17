@@ -1,0 +1,5 @@
+.last-updated {
+    color: var(--ion-color-step-550, #737373);
+    padding-right: 26px;
+    font-size: 14px;
+}

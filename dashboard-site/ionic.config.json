@@ -1,0 +1,7 @@
+{
+  "name": "rpi-tree-watering-dashboard",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

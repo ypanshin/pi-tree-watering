@@ -1,0 +1,68 @@
+{
+  "name": "pi-tree-watering",
+  "version": "1.0.0",
+  "description": "The Raspberry Pi tree watering application",
+  "main": "dist/index.js",
+  "typings": "lib/index.d.ts",
+  "scripts": {
+    "prepare": "npm run build",
+    "build": "tsc",
+    "test": "jest -t 'should commit the file'",
+    "start": "node dist/index"
+  },
+  "config": {
+    "sensorPin": 13,
+    "relayGpio": 6,
+    "onInterval": 1000,
+    "offInterval": 60000,
+    "pumpFlow": 1.5,
+    "maxLogItems": 1000,
+    "commitInterval": 300000,
+    "storageKey": "",
+    "binId": ""
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "testRegex": "^.+\\.spec\\.ts$"
+  },
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ypanshin/pi-tree-watering.git"
+  },
+  "keywords": [
+    "raspberry",
+    "pi",
+    "soil",
+    "moisture",
+    "sensor",
+    "relay"
+  ],
+  "author": "Yuri Panshin <ypanshin@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ypanshin/rpi-tree-watering/issues"
+  },
+  "homepage": "https://github.com/ypanshin/rpi-tree-watering#readme",
+  "devDependencies": {
+    "@types/jest": "^26.0.19",
+    "@types/node-fetch": "^2.5.7",
+    "@types/rpio": "0.0.3",
+    "jest": "^24.9.0",
+    "ts-jest": "^26.4.4",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1",
+    "onoff": "^6.0.1",
+    "rpio": "^2.2.0"
+  }
+}

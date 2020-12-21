@@ -1,10 +1,10 @@
 # PI Tree Watering System
-The automatic watering system to water christmas tree with monitoring.
+The automatic watering system to water Christmas trees with monitoring.
 
 ## Devices
 - [Raspberry PI any model](https://amzn.to/3nE8tsk)
 - [Relay JQC-3FF-S-Z](https://amzn.to/38jBsez)
-- [Moisture Censor](https://amzn.to/3h5OksS) Do not recommend this one, as it only hold for one week, after it broke because of rust. I already ordered another sensor type for test. However, I used the sensor's processor.
+- [Moisture Sensor](https://amzn.to/3h5OksS) Do not recommend this one, as it only holds for one week after it broke because of rust. I already ordered another sensor type for the test. However, I used the sensor's processor.
 - [Water Pump](https://amzn.to/2WwcDGI)
 
 ## Storage [JsonBox](https://jsonbox.io/)
@@ -23,7 +23,7 @@ Connect the moisture sensor to Raspberry PI:
 - VCC --> Pin 4 (5V)
 - GND --> Pin 6 (Ground)
 - DO  --> Pin 3 (GPIO 2)
-The original sensor did not hold for me more than a week. It was destroyed by rust. I replaced this sensor with two regular cooper wires that used for the electricity in the house and it worked much better. 
+The original sensor did not hold for me for more than a week. Rust destroyed the sensor. I replaced this sensor with two regular copper wires used for the house's electricity, and it worked much better. 
 ### Water Pump
 Connect the water pump to the relay:
 - plus --> COM
@@ -56,8 +56,8 @@ On the line before `exit 0` write the following script, replacing `{path to appl
 ```
 su pi -c 'sudo npm start --prefix /home/pi/{path to application} < /dev/null &' 
 ```
-Write out the lines in order to save them (CTRL-X) and then `$ sudo reboot` to restart your RPi
+Write out the lines to save them (CTRL-X) and then `$ sudo reboot` to restart your RPi
 
 ## [Dashboard](https://pi-tree-watering.tech.panshin.me)
-The dashboard is Ionic / React application that displays statistics and logs from the JsonBox log file.
-Please use the JsonBox Id configured in your Raspberry Pi Application or for the demo you can use mine: `box_6f937824ca2f42a8a471`
+The dashboard is an Ionic / React application that displays statistics and logs from the JsonBox log file.
+Please use the JsonBox Id configured in your Raspberry Pi Application, or for the demo, you can use mine: `box_6f937824ca2f42a8a471`

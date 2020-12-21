@@ -34,6 +34,17 @@ Connect the water pump to the relay:
 - `$ git clone https://github.com/ypanshin/pi-tree-watering.git` - clone the repository
 - `$ cd pi-tree-watering` - navigate to the project folder
 - `$ nano package.json` - update `config` section of `package.json`
+```
+"config": {
+    "sensorPin": 3, // the pin that moisture sensor connected to.
+    "relayGpio": 25, // the GPIO that the relay connected to
+    "onInterval": 1000, // the interval in ms to check the moisture sensor when the relay is on (the pump is working).
+    "offInterval": 60000, // the interval in ms to check the moisture sensor when the relay is off (the pump is not working).
+    "pumpFlow": 1.5, // the pump flow in litters per minute
+    "maxLogItems": 1000, // the maximum items in the log
+    "binId": "box_6f937824ca2f42a8a471" // the box id
+  },
+```
 - `$ npm i && npm run build && npm start` - install, build and run the application
 
 ### Run the application On Raspberry Pi At Startup
@@ -47,4 +58,6 @@ su pi -c 'sudo npm start --prefix /home/pi/{path to application} < /dev/null &'
 ```
 Write out the lines in order to save them (CTRL-X) and then `$ sudo reboot` to restart your RPi
 
-
+## [Dashboard](https://pi-tree-watering.tech.panshin.me)
+The dashboard is Ionic / React application that displays statistics and logs from the JsonBox log file.
+Please use the JsonBox Id configured in your Raspberry Pi Application or for the demo you can use mine: `box_6f937824ca2f42a8a471`

@@ -37,17 +37,21 @@ export class Manager {
             this.config.maxLogItems,
             new JsonBoxStorage(this.config.binId),
         );
+
+    }
+
+    public async init() {
         const loggerConfig = { ...this.config };
         delete (loggerConfig as any).jsonBinPrivateKey;
         delete (loggerConfig as any).jsonBinId;
-        this.logger.init(this.config)
-            .then(() => {
+        await this.logger.init(this.config);
+
                 this.logger.addLog(
                     Date.now(),
                     LogType.init,
                     `${this.config.sensorPin}, ${this.config.relayGpio}, ${this.config.onInterval}, ${this.config.offInterval}, ${this.config.pumpFlow}`);
+
                 this.processInterval();
-            });
     }
 
     public relayOn() {

@@ -47,6 +47,16 @@ Connect the water pump to the relay:
 ```
 - `$ npm i && npm run build && npm start` - install, build and run the application
 
+### Reset the logs and statistics
+Get all nodejs processes
+```
+$ ps aux | grep dist/index
+```
+Reset the statistics by process signals
+```
+$ sudo kill -s SIGUSR1 <pid of node dist/index>
+```
+
 ### Run the application On Raspberry Pi At Startup
 Running the application on boot:
 ```

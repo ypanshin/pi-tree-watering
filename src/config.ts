@@ -12,8 +12,6 @@ export interface IConfig {
 
 export interface IAppConfig extends IConfig {
     maxLogItems: number;
-    commitInterval: number;
-    storageKey?: string;
     binId: string;
 }
 

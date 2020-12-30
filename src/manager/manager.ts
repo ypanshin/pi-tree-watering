@@ -32,12 +32,13 @@ export class Manager {
             }
             process.exit();
         });
+        // add listener to reset process signal to reset the logs in runtime
+        process.on('SIGUSR1', this.reset.bind(this));
 
         this.logger = logger || new JsonLogger(
             this.config.maxLogItems,
             new JsonBoxStorage(this.config.binId),
         );
-
     }
 
     public async init() {
@@ -46,15 +47,25 @@ export class Manager {
         delete (loggerConfig as any).jsonBinId;
         await this.logger.init(this.config);
 
-                this.logger.addLog(
-                    Date.now(),
-                    LogType.init,
-                    `${this.config.sensorPin}, ${this.config.relayGpio}, ${this.config.onInterval}, ${this.config.offInterval}, ${this.config.pumpFlow}`);
+        this.logger.addLog(
+            Date.now(),
+            LogType.init,
+            `${this.config.sensorPin}, ${this.config.relayGpio}, ${this.config.onInterval}, ${this.config.offInterval}, ${this.config.pumpFlow}`
+        );
 
-                this.processInterval();
+        this.processInterval();
     }
 
-    public relayOn() {
+    public async reset() {
+        await this.logger.reset();
+        await this.logger.addLog(
+            Date.now(),
+            LogType.reset,
+            `${this.config.sensorPin}, ${this.config.relayGpio}, ${this.config.onInterval}, ${this.config.offInterval}, ${this.config.pumpFlow}`
+        );
+    }
+
+    private relayOn() {
         // change interval
         if (this.interval) {
             clearInterval(this.interval);
@@ -68,7 +79,7 @@ export class Manager {
         }
     }
 
-    public relayOff() {
+    private relayOff() {
         // change interval
         if (this.interval) {
             clearInterval(this.interval);

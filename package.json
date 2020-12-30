@@ -1,6 +1,6 @@
 {
   "name": "pi-tree-watering",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The Raspberry Pi tree watering application",
   "main": "dist/index.js",
   "typings": "lib/index.d.ts",
@@ -17,8 +17,6 @@
     "offInterval": 60000,
     "pumpFlow": 1.5,
     "maxLogItems": 1000,
-    "commitInterval": 300000,
-    "storageKey": "",
     "binId": ""
   },
   "jest": {

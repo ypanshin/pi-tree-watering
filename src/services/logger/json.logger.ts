@@ -3,8 +3,15 @@ import { IStorage } from '../storage/storage';
 
 export enum LogType {
     init = 'init',
+    reset = 'reset',
     relay = 'relay',
     moistureSensor = 'moistureSensor',
+}
+
+export interface ILogItem {
+    type: LogType;
+    date: number;
+    data: string;
 }
 export interface ILog {
     config: IConfig,
@@ -16,11 +23,7 @@ export interface ILog {
      * The time the relay was on in milliseconds
      */
     onTime: number;
-    logs: [{
-        type: LogType;
-        date: number;
-        data: string;
-    }]
+    logs: ILogItem[];
 }
 
 export class JsonLogger {
@@ -32,12 +35,17 @@ export class JsonLogger {
     public async init(config: IConfig) {
         this.log = await this.storage.load();
         this.log.onTime = this.log.onTime || 0;
-        this.log.startDate = Date.now();
+        this.log.startDate = this.log.startDate || Date.now();
         this.log.config = config;
         await this.storage.save(this.log);
     }
 
-    public async addLog(date: number, type: LogType, data: string) {
+    public reset() {
+        this.log = { ...this.log, onTime: 0, startDate: Date.now(), logs: [] };
+        return this.storage.save(this.log);
+    }
+
+    public addLog(date: number, type: LogType, data: string) {
         if (type === LogType.relay) {
             if (this.lastOn) {
                 this.log.onTime += date - this.lastOn;
@@ -59,6 +67,6 @@ export class JsonLogger {
             data,
         });
         console.log(new Date(date), type, data);
-        await this.storage.save(this.log);
+        return this.storage.save(this.log);
     }
 }

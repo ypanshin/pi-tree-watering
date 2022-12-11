@@ -17,7 +17,6 @@ export class JsonBaseStorage implements IStorage {
                     const { status, statusText } = response;
                     return Promise.reject({ status, statusText });
                 }
-            })
-            .then((array) => array[0] || {});
+            });
     }
 }

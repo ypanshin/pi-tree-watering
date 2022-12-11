@@ -2,8 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import BoxIdDialog from "./components/box-id-dialog/BoxIdDialog";
 import { IError } from "./model/error";
 import { ILog } from "./model/log";
-import { JsonBoxStorage } from "./services/json-box.storage";
-
+import { JsonBaseStorage } from "./services/json-base.storage";
 export interface IAppContext {
     loading: boolean;
     lastUpdated?: number;
@@ -32,7 +31,7 @@ function AppContextProvider(props: any) {
 
     useEffect(() => {
         if (state.boxId) {
-            const storage = new JsonBoxStorage(state.boxId);
+            const storage = new JsonBaseStorage(state.boxId);
             const loadData = async () => {
                 try {
                     const log = await storage.get();

@@ -5,7 +5,7 @@ import { ILog } from "../model/log";
 export class JsonBoxStorage implements IStorage {
     private rootUrl = 'https://jsonbox.io';
 
-    constructor(private boxId: string = 'box_6f937824ca2f42a8a471') {
+    constructor(private boxId: string = 'box_6f937824ca2f42a8a471/data') {
     }
 
     get(): Promise<ILog> {

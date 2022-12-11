@@ -3,7 +3,7 @@ import { IStorage } from "./storage";
 import fetch from 'node-fetch';
 
 export class JsonBoxStorage implements IStorage {
-    private rootUrl = 'https://jsonbox.io';
+    private rootUrl = 'https://jsonbase.com';
 
     constructor(private binId: string) {
     }
@@ -19,8 +19,8 @@ export class JsonBoxStorage implements IStorage {
                 }
             })
             .then((array) => {
-                if (array[0]) {
-                    return array[0];
+                if (array) {
+                    return array;
                 } else {
                     console.log('The array is empty, create the object')
                     return fetch(url, {

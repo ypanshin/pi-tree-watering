@@ -9,8 +9,8 @@ export class JsonBinStorage implements IStorage {
     }
 
     load(): Promise<ILog> {
-        const url = `${this.rootUrl}/${this.binId}?meta=false`;
-        return fetch(url)
+        const url = `${this.rootUrl}/${this.binId}/latest`;
+        return fetch(url, { headers: { 'X-Bin-Meta': 'false' } })
             .then((response) => {
                 if (response.ok) {
                     return response.json();
@@ -18,29 +18,11 @@ export class JsonBinStorage implements IStorage {
                     return response.json().then(Promise.reject);
                 }
             })
-            .then((array) => {
-                if (array) {
-                    return array;
-                } else {
-                    console.log('The array is empty, create the object')
-                    return fetch(url, {
-                        method: 'POST',
-                        body: JSON.stringify({ config: {} }),
-                        headers: { 'Content-Type': 'application/json' }
-                    }).then((response) => {
-                        if (response.ok) {
-                            return response.json();
-                        } else {
-                            return Promise.reject(response.status);
-                        }
-                    });
-                }
-            })
             .catch((error) => console.error('error while loading', error));
     }
 
     save(log: ILog): Promise<void> {
-        const url = `${this.rootUrl}/${this.binId}/${(log as any)._id}`;
+        const url = `${this.rootUrl}/${this.binId}`;
         return fetch(url, {
             method: 'PUT',
             body: JSON.stringify(log),

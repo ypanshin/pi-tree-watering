@@ -9,7 +9,7 @@ export class JsonBinStorage implements IStorage {
     }
 
     get(): Promise<ILog> {
-        return fetch(`${this.rootUrl}/${this.boxId}?meta=false`)
+        return fetch(`${this.rootUrl}/${this.boxId}/latest`, { headers: { 'X-Bin-Meta': 'false' } })
             .then((response) => {
                 if (response.ok) {
                     return response.json();

@@ -10,8 +10,10 @@ The automatic watering system to water Christmas trees with monitoring.
 ## Storage [JsonBox](https://jsonbox.io/)
 The system uses JsonBox to store the logs.
 - navigate to the link and get the box id from the link on hte home page
+
 ## System Setup
 ![Diagram](docs/assets/img/diagram.png)
+
 ### Relay
 Connect the relay to the Raspberry PI:
 - VCC --> Pin 2 (5V)
@@ -24,6 +26,7 @@ Connect the moisture sensor to Raspberry PI:
 - GND --> Pin 6 (Ground)
 - DO  --> Pin 3 (GPIO 2)
 The original sensor did not hold for me for more than a week. Rust destroyed the sensor. I replaced this sensor with two regular copper wires used for the house's electricity, and it worked much better. 
+
 ### Water Pump
 Connect the water pump to the relay:
 - plus --> COM
@@ -47,6 +50,11 @@ Connect the water pump to the relay:
 ```
 - `$ npm i && npm run build && npm start` - install, build and run the application
 
+### Copy files to raspberry pi from another machine
+```
+scp -r ./dist pi@192.168.0.103:~/apps/pi-tree-watering/dist
+```
+
 ### Reset the logs and statistics
 Get all nodejs processes
 ```
@@ -69,5 +77,5 @@ su pi -c 'sudo npm start --prefix /home/pi/{path to application} < /dev/null &'
 Write out the lines to save them (CTRL-X) and then `$ sudo reboot` to restart your RPi
 
 ## [Dashboard](https://pi-tree-watering.tech.panshin.me)
-The dashboard is an Ionic / React application that displays statistics and logs from the JsonBox log file.
-Please use the JsonBox Id configured in your Raspberry Pi Application, or for the demo, you can use mine: `box_6f937824ca2f42a8a471`
+The dashboard is an Ionic / React application that displays statistics and logs from the JsonBin.io log file.
+Please use the JsonBin Id configured in your Raspberry Pi Application, or for the demo, you can use mine: `657608380574da7622d30f4c`

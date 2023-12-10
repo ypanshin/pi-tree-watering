@@ -17,11 +17,13 @@ const BoxIdDialog: React.FC<IProps> = ({ boxId, error, onSave }) => {
     const [state, setState] = useState<IState>({ showBoxIdForm: !boxId || !!error, boxId });
 
     useEffect(() => {
-        const newState = { ...state };
-        if (!!error) {
-            newState.showBoxIdForm = true;
-        }
-        setState({ ...newState, boxId });
+        setState((prevState) => {
+            const newState = { ...prevState };
+            if (!!error) {
+                newState.showBoxIdForm = true;
+            }
+            return { ...newState, boxId };
+        });
     }, [error, boxId]);
 
     const setBoxId = (boxId: string) => {
@@ -57,12 +59,12 @@ const BoxIdDialog: React.FC<IProps> = ({ boxId, error, onSave }) => {
                         This application is client for Pi tree watering system.
                     </p>
                     <p>
-                        The watering system uses <a href="https://jsonbox.io" target="_blank" rel="noopener noreferrer">jsonbox.io</a> as the logs storage.
-                            Please visit this site to obtain the box id.
+                        The watering system uses <a href="https://jsonbin.io" target="_blank" rel="noopener noreferrer">jsonbox.io</a> as the logs storage.
+                        Please visit this site to obtain the bin id.
                     </p>
                     <IonList>
                         <IonItem>
-                            <IonLabel position="floating">Enter Box Id</IonLabel>
+                            <IonLabel position="floating">Enter Bin Id</IonLabel>
                             <IonInput value={state.boxId} onIonChange={e => setBoxId(e.detail.value!)} required clearInput></IonInput>
                         </IonItem>
                     </IonList>

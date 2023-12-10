@@ -2,7 +2,7 @@ import React, { createContext, useEffect, useState } from "react";
 import BoxIdDialog from "./components/box-id-dialog/BoxIdDialog";
 import { IError } from "./model/error";
 import { ILog } from "./model/log";
-import { JsonBaseStorage } from "./services/json-base.storage";
+import { JsonBinStorage } from "./services/json-bin.storage";
 export interface IAppContext {
     loading: boolean;
     lastUpdated?: number;
@@ -31,7 +31,7 @@ function AppContextProvider(props: any) {
 
     useEffect(() => {
         if (state.boxId) {
-            const storage = new JsonBaseStorage(state.boxId);
+            const storage = new JsonBinStorage(state.boxId);
             const loadData = async () => {
                 try {
                     const log = await storage.get();
@@ -40,13 +40,13 @@ function AppContextProvider(props: any) {
                         const { offInterval, onInterval } = log.config;
                         const min = offInterval < onInterval ? offInterval : onInterval;
                         timeout = timeout > min ? timeout : min;
-                        setState({ ...state, loading: false, log, lastUpdated: Date.now() });
+                        setState((prevState) => ({ ...prevState, loading: false, log, lastUpdated: Date.now() }));
 
                     }
                     setTimeout(loadData, timeout);
                 } catch (error) {
                     console.error('error while getting logs', error);
-                    setState({ ...state, boxId: undefined, error });
+                    setState((prevState) => ({ ...prevState, boxId: undefined, error: error as IError }));
                 }
             }
             loadData();
@@ -55,7 +55,7 @@ function AppContextProvider(props: any) {
 
     const handleBoxIdSave = (boxId: string) => {
         localStorage.setItem(storageKey, boxId);
-        setState({ ...state, boxId, error: undefined });
+        setState((prevState) => ({ ...prevState, boxId, error: undefined }));
     }
 
     return (

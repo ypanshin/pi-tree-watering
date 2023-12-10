@@ -59,7 +59,7 @@ const BoxIdDialog: React.FC<IProps> = ({ boxId, error, onSave }) => {
                         This application is client for Pi tree watering system.
                     </p>
                     <p>
-                        The watering system uses <a href="https://jsonbin.io" target="_blank" rel="noopener noreferrer">jsonbox.io</a> as the logs storage.
+                        The watering system uses <a href="https://jsonbin.io" target="_blank" rel="noopener noreferrer">jsonbin.io</a> as the logs storage.
                         Please visit this site to obtain the bin id.
                     </p>
                     <IonList>

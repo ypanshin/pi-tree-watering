@@ -3,13 +3,13 @@ import { IStorage } from "./storage";
 import fetch from 'node-fetch';
 
 export class JsonBinStorage implements IStorage {
-    private rootUrl = 'https://jsonbin.io/v3/b';
+    private rootUrl = 'https://api.jsonbin.io/v3/b';
 
     constructor(private binId: string) {
     }
 
     load(): Promise<ILog> {
-        const url = `${this.rootUrl}/${this.binId}`;
+        const url = `${this.rootUrl}/${this.binId}?meta=false`;
         return fetch(url)
             .then((response) => {
                 if (response.ok) {

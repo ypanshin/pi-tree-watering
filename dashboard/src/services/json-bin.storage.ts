@@ -5,7 +5,7 @@ import { ILog } from "../model/log";
 export class JsonBinStorage implements IStorage {
     private rootUrl = 'https://api.jsonbin.io/v3/b';
 
-    constructor(private boxId: string = '657608380574da7622d30f4c') {
+    constructor(private boxId: string) {
     }
 
     get(): Promise<ILog> {

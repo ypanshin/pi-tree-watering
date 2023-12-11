@@ -1,37 +1,37 @@
-# PI Tree Watering System
-The automatic watering system to water Christmas trees with monitoring.
+# Pi Tree Watering System
+
+An automated watering system designed for Christmas trees with monitoring capabilities.
 
 ## Devices
-- [Raspberry PI any model](https://amzn.to/3nE8tsk)
+- [Raspberry Pi (any model)](https://amzn.to/3nE8tsk)
 - [Relay JQC-3FF-S-Z](https://amzn.to/38jBsez)
-- [Moisture Sensor](https://amzn.to/3h5OksS) Do not recommend this one, as it only holds for one week after it broke because of rust. I already ordered another sensor type for the test. However, I used the sensor's processor.
+- [Moisture Sensor](https://amzn.to/3h5OksS) (Note: Avoid the linked sensor as it tends to rust and fail within a week. I recommend using regular copper wires instead.)
 - [Water Pump](https://amzn.to/2WwcDGI)
 
-## Storage [JsonBox](https://jsonbox.io/)
-The system uses JsonBox to store the logs.
-- navigate to the link and get the box id from the link on hte home page
+## Storage: [JsonBin](https://jsonbin.io/)
+The system utilizes JsonBin to store logs. Visit the provided link, and obtain the box ID from the home page.
 
 ## System Setup
 ![Diagram](docs/assets/img/diagram.png)
 
 ### Relay
-Connect the relay to the Raspberry PI:
-- VCC --> Pin 2 (5V)
-- GND --> Pin 20 (Ground)
-- IN  --> Pin 22 (GPIO 25)
+Connect the relay to the Raspberry Pi:
+- VCC → Pin 2 (5V)
+- GND → Pin 20 (Ground)
+- IN  → Pin 22 (GPIO 25)
 
 ### Moisture Sensor
-Connect the moisture sensor to Raspberry PI:
-- VCC --> Pin 4 (5V)
-- GND --> Pin 6 (Ground)
-- DO  --> Pin 3 (GPIO 2)
-The original sensor did not hold for me for more than a week. Rust destroyed the sensor. I replaced this sensor with two regular copper wires used for the house's electricity, and it worked much better. 
+Connect the moisture sensor to Raspberry Pi:
+- VCC → Pin 4 (5V)
+- GND → Pin 6 (Ground)
+- DO  → Pin 3 (GPIO 2)
+(Note: Replace the recommended sensor with two regular copper wires for better durability.)
 
 ### Water Pump
 Connect the water pump to the relay:
-- plus --> COM
-- minus --> DC Power Supply minus
-- Relay ON --> DC Power Supply plus
+- Plus → COM
+- Minus → DC Power Supply minus
+- Relay ON → DC Power Supply plus
 
 ### Application Installation on Raspberry PI
 - `$ git clone https://github.com/ypanshin/pi-tree-watering.git` - clone the repository
@@ -50,7 +50,7 @@ Connect the water pump to the relay:
 ```
 - `$ npm i && npm run build && npm start` - install, build and run the application
 
-### Copy files to raspberry pi from another machine
+### Copy files to Raspberry Pi from another machine
 ```
 scp -r ./dist pi@192.168.0.103:~/apps/pi-tree-watering/dist
 ```
@@ -78,4 +78,4 @@ Write out the lines to save them (CTRL-X) and then `$ sudo reboot` to restart yo
 
 ## [Dashboard](https://pi-tree-watering.tech.panshin.me)
 The dashboard is an Ionic / React application that displays statistics and logs from the JsonBin.io log file.
-Please use the JsonBin Id configured in your Raspberry Pi Application, or for the demo, you can use mine: `657608380574da7622d30f4c`
+Please use the JsonBin ID configured in your Raspberry Pi Application.

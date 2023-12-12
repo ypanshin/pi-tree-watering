@@ -8,6 +8,13 @@ An automated watering system designed for Christmas trees with monitoring capabi
 - [Moisture Sensor](https://amzn.to/3h5OksS) (Note: Avoid the linked sensor as it tends to rust and fail within a week. I recommend using regular copper wires instead.)
 - [Water Pump](https://amzn.to/2WwcDGI)
 
+## Siphoning Issue
+Siphoning refers to the process of transferring a liquid from one container to another by using a tube or hose that runs from a higher level to a lower level. 
+
+![Diagram](docs/assets/img/siphoning.png)
+
+When the water level in the source container is higher than the end of the tube, water will flow without the need for the pump to be switched on. Make sure that the end of the tube is positioned higher than the water level.
+
 ## Storage: [JsonBin](https://jsonbin.io/)
 The system utilizes JsonBin to store logs. Visit the provided link, and obtain the box ID from the home page.
 

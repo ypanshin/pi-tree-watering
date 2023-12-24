@@ -33,7 +33,7 @@ export class JsonLogger {
     }
 
     public async init(config: IConfig) {
-        this.log = await this.storage.load();
+        this.log = (await this.storage.load()) ?? {} as ILog;
         this.log.onTime = this.log.onTime || 0;
         this.log.startDate = this.log.startDate || Date.now();
         this.log.config = config;

@@ -2,6 +2,7 @@ import { Gpio, Direction, Edge, Options } from 'onoff';
 import { JsonLogger, LogType } from '../services/logger/json.logger';
 import { IAppConfig } from '../config';
 import { JsonBinStorage } from '../services/storage/json-bin.storage';
+import { FileStorage } from '../services/storage/file.storage';
 
 /**
  * Tree waterer
@@ -37,7 +38,7 @@ export class Manager {
 
         this.logger = logger || new JsonLogger(
             this.config.maxLogItems,
-            new JsonBinStorage(this.config.binId),
+            new FileStorage(),
         );
     }
 

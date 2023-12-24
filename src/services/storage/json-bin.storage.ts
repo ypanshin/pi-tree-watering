@@ -8,7 +8,7 @@ export class JsonBinStorage implements IStorage {
     constructor(private binId: string) {
     }
 
-    load(): Promise<ILog> {
+    load(): Promise<ILog | undefined> {
         const url = `${this.rootUrl}/${this.binId}/latest`;
         return fetch(url, { headers: { 'X-Bin-Meta': 'false' } })
             .then((response) => {

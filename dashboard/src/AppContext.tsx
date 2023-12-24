@@ -1,13 +1,13 @@
 import React, { createContext, useEffect, useState } from "react";
-import BoxIdDialog from "./components/box-id-dialog/BoxIdDialog";
+import StorageParameterDialog from "./components/storage-param-dialog/StorageParamDialog";
 import { IError } from "./model/error";
 import { ILog } from "./model/log";
-import { JsonBinStorage } from "./services/json-bin.storage";
+import { FileStorage } from "./services/file.storage";
 export interface IAppContext {
     loading: boolean;
     lastUpdated?: number;
     log?: ILog;
-    boxId?: string;
+    parameter?: string;
     error?: IError;
 }
 
@@ -15,11 +15,11 @@ export interface IAppRouterParams {
     id: string;
 }
 
-const storageKey = 'boxId';
+const storageKey = 'storageParameter';
 
 const initialState: IAppContext = {
     loading: true,
-    boxId: localStorage.getItem(storageKey) || undefined,
+    parameter: localStorage.getItem(storageKey) || undefined,
 }
 
 const AppContext = createContext<IAppContext>(initialState);
@@ -30,8 +30,8 @@ function AppContextProvider(props: any) {
     const [state, setState] = useState<IAppContext>(initialState);
 
     useEffect(() => {
-        if (state.boxId) {
-            const storage = new JsonBinStorage(state.boxId);
+        if (state.parameter) {
+            const storage = new FileStorage(state.parameter);
             const loadData = async () => {
                 try {
                     const log = await storage.get();
@@ -46,21 +46,21 @@ function AppContextProvider(props: any) {
                     setTimeout(loadData, timeout);
                 } catch (error) {
                     console.error('error while getting logs', error);
-                    setState((prevState) => ({ ...prevState, boxId: undefined, error: error as IError }));
+                    setState((prevState) => ({ ...prevState, parameter: undefined, error: error as IError }));
                 }
             }
             loadData();
         }
-    }, [state.boxId]);
+    }, [state.parameter]);
 
-    const handleBoxIdSave = (boxId: string) => {
+    const handleStorageParameterSave = (boxId: string) => {
         localStorage.setItem(storageKey, boxId);
-        setState((prevState) => ({ ...prevState, boxId, error: undefined }));
+        setState((prevState) => ({ ...prevState, parameter: boxId, error: undefined }));
     }
 
     return (
         <div>
-            <BoxIdDialog boxId={state.boxId} error={state.error} onSave={handleBoxIdSave}></BoxIdDialog>
+            <StorageParameterDialog storageParameter={state.parameter} error={state.error} onSave={handleStorageParameterSave}></StorageParameterDialog>
             <AppContext.Provider value={state}>{props.children}</AppContext.Provider>
         </div >
     );

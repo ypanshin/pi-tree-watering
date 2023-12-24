@@ -4,17 +4,17 @@ import { IError } from '../../model/error';
 
 interface IState {
     showBoxIdForm: boolean;
-    boxId?: string;
+    storageParameter?: string;
 }
 
 interface IProps {
-    boxId?: string;
+    storageParameter?: string;
     error?: IError;
     onSave: (boxId: string) => void
 }
 
-const BoxIdDialog: React.FC<IProps> = ({ boxId, error, onSave }) => {
-    const [state, setState] = useState<IState>({ showBoxIdForm: !boxId || !!error, boxId });
+const StorageParameterDialog: React.FC<IProps> = ({ storageParameter, error, onSave }) => {
+    const [state, setState] = useState<IState>({ showBoxIdForm: !storageParameter || !!error, storageParameter });
 
     useEffect(() => {
         setState((prevState) => {
@@ -22,18 +22,18 @@ const BoxIdDialog: React.FC<IProps> = ({ boxId, error, onSave }) => {
             if (!!error) {
                 newState.showBoxIdForm = true;
             }
-            return { ...newState, boxId };
+            return { ...newState, storageParameter };
         });
-    }, [error, boxId]);
+    }, [error, storageParameter]);
 
-    const setBoxId = (boxId: string) => {
-        setState({ ...state, boxId });
+    const setStorageParameter = (storageParameter: string) => {
+        setState({ ...state, storageParameter });
     }
 
-    const saveBoxId = () => {
-        if (state.boxId) {
+    const saveStorageParameter = () => {
+        if (state.storageParameter) {
             setState({ ...state, showBoxIdForm: false });
-            onSave(state.boxId);
+            onSave(state.storageParameter);
         }
     }
 
@@ -48,9 +48,9 @@ const BoxIdDialog: React.FC<IProps> = ({ boxId, error, onSave }) => {
             <IonPage>
                 <IonHeader>
                     <IonToolbar>
-                        <IonTitle>Box Id</IonTitle>
+                        <IonTitle>Storage Parameter</IonTitle>
                         <IonButtons slot="end">
-                            <IonButton onClick={() => saveBoxId()}>Save</IonButton>
+                            <IonButton onClick={() => saveStorageParameter()}>Save</IonButton>
                         </IonButtons>
                     </IonToolbar>
                 </IonHeader>
@@ -58,14 +58,10 @@ const BoxIdDialog: React.FC<IProps> = ({ boxId, error, onSave }) => {
                     <p>
                         This application is client for Pi tree watering system.
                     </p>
-                    <p>
-                        The watering system uses <a href="https://jsonbin.io" target="_blank" rel="noopener noreferrer">jsonbin.io</a> as the logs storage.
-                        Please visit this site to obtain the bin id.
-                    </p>
                     <IonList>
                         <IonItem>
-                            <IonLabel position="floating">Enter Bin Id</IonLabel>
-                            <IonInput value={state.boxId} onIonChange={e => setBoxId(e.detail.value!)} required clearInput></IonInput>
+                            <IonLabel position="floating">Enter Storage Parameter</IonLabel>
+                            <IonInput value={state.storageParameter} onIonChange={e => setStorageParameter(e.detail.value!)} required clearInput></IonInput>
                         </IonItem>
                     </IonList>
                     {getError(error)}
@@ -75,4 +71,4 @@ const BoxIdDialog: React.FC<IProps> = ({ boxId, error, onSave }) => {
     );
 }
 
-export default BoxIdDialog;
+export default StorageParameterDialog;
